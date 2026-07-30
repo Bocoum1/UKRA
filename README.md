@@ -67,10 +67,19 @@ The final BI report included in this repository is:
 
 ## Screenshots
 
-Screenshots of the dashboard are available in the `screenshots/` folder.
+### Global Overview
+
+![Global overview](screenshots/vue-globale.png)
+
+### Territorial View
+
+![Territorial view](screenshots/vue-territoriale.png)
+
+### Risk Factors
+
+![Risk factors](screenshots/facteurs-risque.png)
 
 ## Authors
 
 - Amadou Bocoum
-- Anya Levêque
-
+- Anya Leveque
