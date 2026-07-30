@@ -86,4 +86,4 @@ The final BI report included in this repository is:
 ## Authors
 
 - Amadou Bocoum
-- Anya Leveque
+- Anya Levêque
