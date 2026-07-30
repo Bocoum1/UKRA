@@ -66,7 +66,7 @@ Les KPI principaux comprennent :
 
 ```mermaid
 flowchart LR
-    A[Données routières 2021-2022] --> B[Import Excel avec readxl]
+    A[Dataset Kaggle 2021-2022] --> B[Import Excel avec readxl]
     B --> C[Nettoyage et enrichissement avec dplyr]
     C --> D[Cache local RDS]
     D --> E[Filtres réactifs Shiny]
@@ -91,17 +91,16 @@ lancements suivants.
 
 ## Données
 
-Les données brutes ne sont pas incluses dans ce dépôt. Elles proviennent des
-données ouvertes sur la sécurité routière publiées par le **Department for
-Transport** britannique. Elles concernent les collisions corporelles signalées à
-la police et enregistrées dans le système STATS19. La source DfT couvre la
-**Grande-Bretagne** (Angleterre, Écosse et Pays de Galles) ; elle n'inclut pas
-l'Irlande du Nord.
+Les données brutes ne sont pas incluses dans ce dépôt. Le fichier utilisé pour
+réaliser le projet a été téléchargé depuis **Kaggle** :
 
-- [Road safety open data - GOV.UK](https://www.gov.uk/government/statistical-data-sets/road-safety-open-data)
-- [Road safety statistics - GOV.UK](https://www.gov.uk/government/collections/road-safety-statistics)
+**[Road Accident dataset - Kaggle](https://www.kaggle.com/datasets/xavierberge/road-accident-dataset)**
 
-La version actuelle de l'application attend un classeur consolidé nommé :
+Le dataset Kaggle contient les versions Excel et CSV des données et est publié
+sous licence **CC0: Public Domain**.
+
+Après téléchargement, le fichier Excel `Road Accident Data.xlsx` doit être placé
+à la racine du projet et renommé comme suit :
 
 ```text
 Road_Accident_Data.xlsx
@@ -112,9 +111,9 @@ les dates et heures, la gravité, le nombre de victimes, les coordonnées, le
 district, le véhicule, la route, la météo, la luminosité, la zone et la limitation
 de vitesse.
 
-> Le classeur consolidé et le cache RDS sont volontairement exclus de Git afin de
-> ne pas versionner un dataset volumineux. Le dépôt documente et exécute l'analyse,
-> mais nécessite ce fichier préparé pour un lancement local.
+> Le classeur Kaggle et le cache RDS sont volontairement exclus de Git afin de ne
+> pas versionner un dataset volumineux. Le dépôt documente et exécute l'analyse,
+> mais nécessite le téléchargement du fichier source pour un lancement local.
 
 ## Installation locale
 
