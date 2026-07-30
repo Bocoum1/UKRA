@@ -1,29 +1,156 @@
-# UKRA - UK Road Accidents BI Dashboard
+<div align="center">
 
-Interactive Business Intelligence dashboard built with **R Shiny** to analyze road accidents in the United Kingdom for **2021-2022**.
+# UKRA
 
-## Live Application
+### Tableau de bord BI sur les accidents routiers au Royaume-Uni
 
-Explore the published dashboard: **[UKRA - Road Safety Dashboard](https://datascienceappli.shinyapps.io/Securite_routiere/)**
+Analyse interactive des accidents recensés en 2021 et 2022 pour soutenir
+l'identification des zones, périodes et conditions les plus à risque.
 
-The project was developed in an academic BI setting and focuses on:
-- global reporting on accidents and casualties;
-- severity analysis across key risk factors;
-- territorial analysis by district;
-- temporal analysis by month, day, and hour.
+[![Application Shiny](https://img.shields.io/badge/Application_Shiny-Accéder_au_dashboard-0b4a6b?style=for-the-badge&logo=r)](https://datascienceappli.shinyapps.io/Securite_routiere/)
+![R Shiny](https://img.shields.io/badge/R-Shiny-276DC3?style=for-the-badge&logo=r&logoColor=white)
+![Business Intelligence](https://img.shields.io/badge/Projet-Business_Intelligence-c96a3d?style=for-the-badge)
 
-## Overview
+</div>
 
-This dashboard helps explore road accident patterns and identify the conditions most associated with severe collisions. It combines a decision-oriented interface with descriptive BI indicators and interactive visualizations.
+[![Aperçu de la vue globale](screenshots/vue-globale.png)](https://datascienceappli.shinyapps.io/Securite_routiere/)
 
-Main features:
-- KPI cards for accidents, casualties, and severe/fatal accident rates;
-- trend analysis over time;
-- territorial view with district-level mapping;
-- severity analysis by weather, light conditions, speed limit, road type, and area;
-- temporal breakdowns by month, weekday, and hour.
+## Présentation
 
-## Project Structure
+UKRA est une application de Business Intelligence développée avec **R Shiny**.
+Elle transforme des données détaillées sur les accidents de la route en indicateurs
+interactifs destinés à l'analyse décisionnelle.
+
+Le tableau de bord répond à trois objectifs :
+
+- fournir une vision synthétique du volume d'accidents, des victimes et de la gravité ;
+- identifier les facteurs associés aux accidents graves ou mortels ;
+- repérer les districts et les périodes présentant les niveaux de risque les plus élevés.
+
+Le projet s'adresse principalement aux autorités nationales et locales chargées des
+transports, aux acteurs de la sécurité routière et aux forces de police.
+
+## Application en ligne
+
+Le dashboard publié est accessible ici :
+
+**[Ouvrir UKRA sur shinyapps.io](https://datascienceappli.shinyapps.io/Securite_routiere/)**
+
+L'application propose des filtres communs sur l'année, le district, le type de
+véhicule, la gravité, la zone urbaine ou rurale et la limitation de vitesse.
+Toutes les visualisations se mettent à jour selon la sélection.
+
+## Parcours analytique
+
+| Vue | Question traitée | Principaux éléments |
+| --- | --- | --- |
+| **Vue globale** | Quelle est la situation générale ? | KPI, évolution mensuelle, gravité, véhicules et zones |
+| **Vue territoriale** | Où les accidents sont-ils les plus nombreux ou les plus graves ? | Carte interactive, top 10 des districts et tableau détaillé |
+| **Facteurs de risque** | Dans quelles conditions les accidents surviennent-ils ? | Météo, luminosité, vitesse et type de route |
+| **Analyse temporelle** | Quand les accidents et les victimes sont-ils les plus fréquents ? | Jour, heure, mois, pics et comparaison mensuelle |
+
+Les KPI principaux comprennent :
+
+- le nombre total d'accidents ;
+- le nombre total de victimes ;
+- la part des accidents graves ou mortels ;
+- le nombre moyen de victimes par accident.
+
+## Aperçus
+
+| Vue transversale territoriale | Facteurs de risque |
+| :---: | :---: |
+| ![Vue territoriale](screenshots/vue-territoriale.png) | ![Facteurs de risque](screenshots/facteurs-risque.png) |
+
+## Architecture
+
+```mermaid
+flowchart LR
+    A[Données routières 2021-2022] --> B[Import Excel avec readxl]
+    B --> C[Nettoyage et enrichissement avec dplyr]
+    C --> D[Cache local RDS]
+    D --> E[Filtres réactifs Shiny]
+    E --> F[KPI et graphiques Plotly]
+    E --> G[Carte Leaflet]
+    E --> H[Tableaux DT]
+```
+
+Le fichier source est préparé au premier lancement, puis enregistré dans
+`road_accident_data.rds`. Ce cache est réutilisé tant qu'il reste plus récent que
+le classeur Excel, ce qui réduit fortement le temps de démarrage lors des
+lancements suivants.
+
+## Technologies
+
+- **R Shiny** pour l'application interactive ;
+- **dplyr** et **lubridate** pour la préparation des données ;
+- **ggplot2** et **Plotly** pour les visualisations ;
+- **Leaflet** pour l'analyse cartographique ;
+- **DT** pour les tableaux interactifs ;
+- **readxl** pour l'import du classeur source.
+
+## Données
+
+Les données brutes ne sont pas incluses dans ce dépôt. Elles proviennent des
+données ouvertes sur la sécurité routière publiées par le **Department for
+Transport** britannique. Elles concernent les collisions corporelles signalées à
+la police et enregistrées dans le système STATS19. La source DfT couvre la
+**Grande-Bretagne** (Angleterre, Écosse et Pays de Galles) ; elle n'inclut pas
+l'Irlande du Nord.
+
+- [Road safety open data - GOV.UK](https://www.gov.uk/government/statistical-data-sets/road-safety-open-data)
+- [Road safety statistics - GOV.UK](https://www.gov.uk/government/collections/road-safety-statistics)
+
+La version actuelle de l'application attend un classeur consolidé nommé :
+
+```text
+Road_Accident_Data.xlsx
+```
+
+Ce fichier de travail doit être placé à la racine du projet. Il contient notamment
+les dates et heures, la gravité, le nombre de victimes, les coordonnées, le
+district, le véhicule, la route, la météo, la luminosité, la zone et la limitation
+de vitesse.
+
+> Le classeur consolidé et le cache RDS sont volontairement exclus de Git afin de
+> ne pas versionner un dataset volumineux. Le dépôt documente et exécute l'analyse,
+> mais nécessite ce fichier préparé pour un lancement local.
+
+## Installation locale
+
+Cloner le dépôt :
+
+```bash
+git clone https://github.com/Bocoum1/UKRA.git
+cd UKRA
+```
+
+Installer les dépendances depuis R :
+
+```r
+install.packages(c(
+  "shiny",
+  "readxl",
+  "dplyr",
+  "ggplot2",
+  "plotly",
+  "leaflet",
+  "DT",
+  "lubridate",
+  "scales"
+))
+```
+
+Ajouter `Road_Accident_Data.xlsx` à la racine, puis lancer :
+
+```bash
+Rscript -e "shiny::runApp('.')"
+```
+
+Au premier démarrage, l'import et la création du cache peuvent prendre un peu de
+temps. Les lancements suivants utilisent automatiquement le cache valide.
+
+## Structure du dépôt
 
 ```text
 .
@@ -31,59 +158,19 @@ Main features:
 ├── README.md
 ├── Rapport_BI.pdf
 └── screenshots/
+    ├── facteurs-risque.png
+    ├── vue-globale.png
+    └── vue-territoriale.png
 ```
 
-## Run Locally
+## Rapport BI
 
-Make sure the required R packages are installed:
+Le rapport présente l'environnement, le scénario BI, la perspective, la vue
+transversale, les objectifs analytiques, les KPI et les facteurs influents.
 
-```r
-install.packages(c(
-  "shiny", "readxl", "dplyr", "ggplot2", "plotly",
-  "leaflet", "DT", "lubridate", "scales"
-))
-```
+**[Consulter le rapport BI](Rapport_BI.pdf)**
 
-Then launch the app from the project directory:
+## Auteurs
 
-```bash
-Rscript -e "shiny::runApp('.')"
-```
-
-## Dataset
-
-The raw dataset is **not included** in this repository.
-
-This project uses UK road safety open data published by the **Department for Transport**:
-- Road Safety Data: https://www.data.gov.uk/dataset/cb7ae6f0-4be6-4935-9277-47e5ce24a11f/road-accidents-safety-data
-- Road safety collection: https://www.data.gov.uk/collections/transport/road-safety
-
-To run the dashboard locally, place the source Excel file in the repository root with the name:
-
-```text
-Road_Accident_Data.xlsx
-```
-
-## Report
-
-The final BI report included in this repository is:
-- `Rapport_BI.pdf`
-
-## Screenshots
-
-### Global Overview
-
-![Global overview](screenshots/vue-globale.png)
-
-### Territorial View
-
-![Territorial view](screenshots/vue-territoriale.png)
-
-### Risk Factors
-
-![Risk factors](screenshots/facteurs-risque.png)
-
-## Authors
-
-- Amadou Bocoum
+- [Amadou Bocoum](https://github.com/Bocoum1)
 - Anya Levêque
