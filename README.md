@@ -2,6 +2,10 @@
 
 Interactive Business Intelligence dashboard built with **R Shiny** to analyze road accidents in the United Kingdom for **2021-2022**.
 
+## Live Application
+
+Explore the published dashboard: **[UKRA - Road Safety Dashboard](https://datascienceappli.shinyapps.io/Securite_routiere/)**
+
 The project was developed in an academic BI setting and focuses on:
 - global reporting on accidents and casualties;
 - severity analysis across key risk factors;
