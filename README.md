@@ -72,5 +72,5 @@ Screenshots of the dashboard are available in the `screenshots/` folder.
 ## Authors
 
 - Amadou Bocoum
-- Anya Leveque
+- Anya Levêque
 
